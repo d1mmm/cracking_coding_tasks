@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/cracking_codding_tasks
+/cracking_codding_tasks
+/cracking_codding_tasks.sln
+/x64/Debug
