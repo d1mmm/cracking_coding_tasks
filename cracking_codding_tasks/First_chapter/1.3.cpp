@@ -6,60 +6,9 @@
 массив.) 
 */
 
-
-/*
-* Тут нужно немного изменить стуркутуру вектор, а именно алоцировать память по другому. Тобишь в оригинальном векторе 
-  алоцируется память (capacity * 2). Ну то есть если у нас вектор на 10 элементов, то надо алоцировать (10*2) это даст
-  нам быстродействие, что не нужно постоянно переалоцировать память.
-*/
-
 #include <iostream>
 #include <string>
-
-template <typename T>
-class vector
-{
-public:
-	vector() = default;
-	void push_back(const T& param)
-	{
-		if (data == nullptr)
-		{
-			data = new T[1];
-			*data = param;
-			++size;
-		}
-		else
-		{
-			T* new_data = new T[++size];
-			for (auto i = 0; i < size - 1; ++i)
-			{
-				new_data[i] = data[i];
-			}
-			new_data[size - 1] = param;
-
-			delete[] data;
-			data = new T[size];
-			for (auto i = 0; i < size; ++i)
-			{
-				data[i] = new_data[i];
-			}
-			delete[] new_data;
-		}
-	}
-	T& operator[](const int& el)
-	{
-		return data[el];
-	}
-
-	int get_size()
-	{
-		return size;
-	}
-private:
-	T* data;
-	size_t size{};
-};
+#include "../my_vector.h"
 
 std::string replace(const std::string& str)
 {

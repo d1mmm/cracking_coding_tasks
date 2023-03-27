@@ -3,14 +3,9 @@
 MxN равен О, то весь столбец и вся строка обнуляются.
 */
 
-/*
-* !!!! Этот алгоритм нужно улучшить, использовав свой вектор который я описал в 1.3, 
-       и вынеся его в отдельный хедер !!!!
-*/
-
 #include <iostream>
 #include <string>
-#include <vector>
+#include "../my_vector.h"
 
 int** allocate_matrix(const int& m, const int& n)
 {
@@ -49,7 +44,7 @@ void print(int** arr, const int& m, const int& n)
 
 void reset(int** arr, const int& m, const int& n)
 {
-	std::vector<std::pair<int, int>> vec;
+	vector<std::pair<int, int>> vec;
 
 	for (int i = 0; i < m; ++i)
 	{
@@ -64,14 +59,14 @@ void reset(int** arr, const int& m, const int& n)
 
 	for (int i = 0; i < m; ++i)
 	{
-		for (int j = 0; j < vec.size(); ++j)
+		for (int j = 0; j < vec.get_size(); ++j)
 		{
 			arr[i][vec[j].second] = 0;
 		}
 	}
 
 
-	for (int i = 0; i < vec.size(); ++i)
+	for (int i = 0; i < vec.get_size(); ++i)
 	{
 		for (int j = 0; j < n; ++j)
 		{
