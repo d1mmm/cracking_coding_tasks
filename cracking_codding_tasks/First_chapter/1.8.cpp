@@ -84,23 +84,23 @@ void delete_matrix(int** arr, const int& m, const int& n)
 	delete[] arr;
 }
 
-int main(int argc, const char* argv[])
-{
-	/*if (argc != 3)
-	{
-		std::cerr << "Count of arguments incorrect. Your second and third arguments should be numbers\n";
-		return -1;
-	}*/
-
-	const int m = std::atoi(argv[1]);
-	const int n = std::atoi(argv[2]);
-
-	auto arr = allocate_matrix(m, n);
-	set_matrix(arr, m, n);
-	print(arr, m, n);
-	reset(arr, m, n);
-	print(arr, m, n);
-	delete_matrix(arr, m, n);
-
-	return 0;
-}
+//int main(int argc, const char* argv[])
+//{
+//	/*if (argc != 3)
+//	{
+//		std::cerr << "Count of arguments incorrect. Your second and third arguments should be numbers\n";
+//		return -1;
+//	}*/
+//
+//	const int m = std::atoi(argv[1]);
+//	const int n = std::atoi(argv[2]);
+//
+//	auto arr = allocate_matrix(m, n);
+//	set_matrix(arr, m, n);
+//	print(arr, m, n);
+//	reset(arr, m, n);
+//	print(arr, m, n);
+//	delete_matrix(arr, m, n);
+//
+//	return 0;
+//}
