@@ -7,6 +7,7 @@
 
 #include<iostream>
 #include <string>
+#include <vector>
 
 bool isSubstring(const std::string& str, const std::string& str2)
 {
@@ -15,47 +16,46 @@ bool isSubstring(const std::string& str, const std::string& str2)
 		return false;
 	}
 	
-	std::string res;
+	int j = 0;
 
-	for (int i = 0; i < str.length(); ++i)
+	/*for (int i = 0; i < str2.length(); ++i)
 	{
-		for (int j = 0; j < str2.length(); ++j)
+		if (str[j] == str2[i])
 		{
-			if (str[i] == str2[j])
-			{
-				res += str2[j];
-				break;
-			}
+			++j;
 		}
-	}
-	
-	if (str != res)
-	{
-		return false;
-	}
+		
+		if (i == str.length() - 1)
+		{
+			i = -1;
+		}
+	}*/
 
 	return true;
 }
 
-int main(int argc, const char* argv[])
-{
-	/*if (argc != 3)
-	{
-		std::cerr << "Count of arguments incorrect. Your second and third arguments should be string\n";
-		return -1;
-	}*/
-
-	const std::string str = argv[1];
-	const std::string str2 = argv[2];
-
-	if (!isSubstring(str, str2))
-	{
-		std::cerr << str << " is not substring with cyclic shift " << str2 << std::endl;
-	}
-	else
-	{
-		std::cout << str << " is substring with cyclic shift " << str2 << std::endl;
-	}
-
-	return 0;
-}
+//int main(int argc, const char* argv[])
+//{
+//	/*if (argc != 3)
+//	{
+//		std::cerr << "Count of arguments incorrect. Your second and third arguments should be string\n";
+//		return -1;
+//	}*/
+//
+//	argv[1] = "waterbottle";
+//	argv[2] = "erbottlewat";
+//
+//	const std::string str = argv[1];
+//	const std::string str2 = argv[2];
+//
+//	if (!isSubstring(str, str2))
+//	{
+//		std::cerr << str << " is not substring with cyclic shift " << str2 << std::endl;
+//	}
+//	else
+//	{
+//		std::cout << str << " is substring with cyclic shift " << str2 << std::endl;
+//	}
+//
+//	return 0;
+//}
