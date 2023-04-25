@@ -24,6 +24,7 @@ public:
     list() : head(nullptr), tail(nullptr), size(0) {}
     list(std::initializer_list<T> initializer_list);
     void push_back(const T& data);
+    void push_back(const int* dataPtr);
     void pop_back();
     void push_front(const T& data);
     void pop_front();
@@ -34,7 +35,9 @@ public:
     void split(int& x);
     static list<T> sum_lists(list<T>& l_first, list<T>& l_second);
     bool is_palindrom();
-    std::optional<T> find(const T& num);
+    static int* intersection(list<T>& l_first, list<T>& l_second);
+    std::optional<T> find_data_from_tail(const T& num);
+    std::optional<int*> find_node_from_tail(const T& num);
     T& operator [](const int& el);
 };
 
@@ -65,6 +68,25 @@ inline void list<T>::push_back(const T& data)
     }
     newItem = nullptr;
     delete newItem;
+    ++size;
+}
+
+template<typename T>
+inline void list<T>::push_back(const int* dataPtr)
+{
+    Node<T>* newItem =(Node<T>*)dataPtr;
+    if (head == nullptr && tail == nullptr)
+    {
+        tail = newItem;
+        head = tail;
+    }
+    else
+    {
+        Node<T>* current = tail;
+        tail->next = newItem;
+        tail = newItem;
+        tail->prev = current;
+    }
     ++size;
 }
 
@@ -258,7 +280,27 @@ inline bool list<T>::is_palindrom()
 }
 
 template<typename T>
-inline std::optional<T> list<T>::find(const T& num)
+inline int* list<T>::intersection(list<T>& l_first, list<T>& l_second)
+{
+    Node<T>* currentFirst = l_first.head;
+    while (currentFirst != nullptr)
+    {
+        Node<T>* currentSecond = l_second.head;
+        while (currentSecond != nullptr)
+        {
+            if (currentFirst == currentSecond)
+            {
+                return (int*)currentFirst;
+            }
+            currentSecond = currentSecond->next;
+        }
+        currentFirst = currentFirst->next;
+    }
+    return nullptr;
+}
+
+template<typename T>
+inline std::optional<T> list<T>::find_data_from_tail(const T& num)
 {
     if (num > size)
     {
@@ -272,6 +314,27 @@ inline std::optional<T> list<T>::find(const T& num)
         if (num == count)
         {
             return current->data;
+        }
+        ++count;
+        current = current->prev;
+    }
+}
+
+template<typename T>
+inline std::optional<int*> list<T>::find_node_from_tail(const T& num)
+{
+    if (num > size)
+    {
+        return std::nullopt;
+    }
+
+    Node<T>* current = tail;
+    int count = 1;
+    while (current->prev != nullptr)
+    {
+        if (num == count)
+        {
+            return reinterpret_cast<int*>(current);
         }
         ++count;
         current = current->prev;

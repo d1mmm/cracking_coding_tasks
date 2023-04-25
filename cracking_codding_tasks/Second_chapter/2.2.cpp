@@ -13,7 +13,7 @@
 //	my_list.push_front(10);
 //
 //	my_list.print();
-//	const auto el = my_list.find(2);
+//	const auto el = my_list.find_data_from_tail(2);
 //	if (el.has_value())
 //	{
 //		std::cout << "Item = " << el.value();
