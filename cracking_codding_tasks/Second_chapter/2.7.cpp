@@ -4,21 +4,21 @@
 (по ссылке) сj-м узлом второго связного списка, то списки считаются пересекающимися. 
 */
 
-#include "../my_list.h"
-#include <iostream>
-
+//#include "../my_list.h"
+//#include <iostream>
+//
 //int main()
 //{
-//    list<int> list1{ 1,2,3,4,5 };
-//    auto el = list1.find_node_from_tail(4);
-//    list<int> list2{ 1,3 };
-//    if (!el.has_value())
+//    list<int> list1{ 1,2,3,4,5};
+//    auto el = list1.find_node_from_tail(1);
+//    list<int> list2{ 1,2,3,4 };
+//
+//    if (el == nullptr)
 //    {
 //        std::cout << "list1 has not value\n";
 //        return -1;
 //    }
-//    list2.push_back(el.value());
-//    list2.push_back(4);
+//    list2.push_back(el);
 //   
 //    list1.print();
 //    list2.print();
@@ -30,7 +30,7 @@
 //    }
 //    else
 //    {
-//        std::cout << "Lists are cross " << *res;
+//        std::cout << "Lists are cross " << res->data;
 //    }
 //
 //    return 0;

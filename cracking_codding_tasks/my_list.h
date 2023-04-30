@@ -6,6 +6,7 @@
 template<typename T>
 class list
 {
+private:
     template <typename T>
     class Node
     {
@@ -21,10 +22,11 @@ private:
     Node<T>* tail;
     size_t size;
 public:
+    friend class Node<T>;
     list() : head(nullptr), tail(nullptr), size(0) {}
     list(std::initializer_list<T> initializer_list);
     void push_back(const T& data);
-    void push_back(const int* dataPtr);
+    void push_back(list<T>::Node<T>* dataPtr);
     void pop_back();
     void push_front(const T& data);
     void pop_front();
@@ -35,11 +37,14 @@ public:
     void split(int& x);
     static list<T> sum_lists(list<T>& l_first, list<T>& l_second);
     bool is_palindrom();
-    static int* intersection(list<T>& l_first, list<T>& l_second);
+    static list<T>::Node<T>* intersection(list<T>& l_first, list<T>& l_second);
     std::optional<T> find_data_from_tail(const T& num);
-    std::optional<int*> find_node_from_tail(const T& num);
+    list<T>::Node<T>* find_node_from_tail(const T& num);
     T& operator [](const int& el);
+    void create_ring_list(const int& num);
+    list<T>::Node<T>* get_ring_node();
 };
+
 
 template<typename T>
 inline list<T>::list(std::initializer_list<T> initializer_list)
@@ -72,22 +77,26 @@ inline void list<T>::push_back(const T& data)
 }
 
 template<typename T>
-inline void list<T>::push_back(const int* dataPtr)
+inline void list<T>::push_back(list<T>::Node<T>* dataPtr)
 {
-    Node<T>* newItem =(Node<T>*)dataPtr;
     if (head == nullptr && tail == nullptr)
     {
-        tail = newItem;
+        tail = dataPtr;
         head = tail;
     }
     else
     {
         Node<T>* current = tail;
-        tail->next = newItem;
-        tail = newItem;
+        tail->next = dataPtr;
+        tail = dataPtr;
         tail->prev = current;
     }
-    ++size;
+    Node<T>* curr = dataPtr;
+    while (curr != nullptr)
+    {
+        ++size;
+        curr = curr->next;
+    }
 }
 
 template<typename T>
@@ -135,12 +144,12 @@ inline void list<T>::print()
 {
     assert(head != nullptr);
     Node<T>* current = head;
-    while (current->next != nullptr)
+    while (current != nullptr)
     {
         std::cout << current->data << std::endl;
         current = current->next;
     }
-    std::cout << current->data << std::endl << std::endl;
+    std::cout << std::endl;
 }
 
 template<typename T>
@@ -265,7 +274,7 @@ inline list<T> list<T>::sum_lists(list<T>& l_first, list<T>& l_second)
 template<typename T>
 inline bool list<T>::is_palindrom()
 {
-    Node<T>* currentH = head; 
+    Node<T>* currentH = head;
     Node<T>* currentT = tail;
     while (currentH != nullptr)
     {
@@ -280,22 +289,41 @@ inline bool list<T>::is_palindrom()
 }
 
 template<typename T>
-inline int* list<T>::intersection(list<T>& l_first, list<T>& l_second)
+inline list<T>::Node<T>* list<T>::intersection(list<T>& l_first, list<T>& l_second)
 {
     Node<T>* currentFirst = l_first.head;
+    Node<T>* currentSecond = l_second.head;
+    int count = 0, i = 0;
+
+    if (l_first.size > l_second.size)
+    {
+        count = l_first.size - l_second.size;
+        while (i != count)
+        {
+            currentFirst = currentFirst->next;
+            ++i;
+        }
+    }
+    else
+    {
+        count = l_second.size - l_first.size;
+        while (i != count)
+        {
+            currentSecond = currentSecond->next;
+            ++i;
+        }
+    }
+
     while (currentFirst != nullptr)
     {
-        Node<T>* currentSecond = l_second.head;
-        while (currentSecond != nullptr)
+        if (currentFirst == currentSecond)
         {
-            if (currentFirst == currentSecond)
-            {
-                return (int*)currentFirst;
-            }
-            currentSecond = currentSecond->next;
+            return currentFirst;
         }
+        currentSecond = currentSecond->next;
         currentFirst = currentFirst->next;
     }
+
     return nullptr;
 }
 
@@ -321,11 +349,11 @@ inline std::optional<T> list<T>::find_data_from_tail(const T& num)
 }
 
 template<typename T>
-inline std::optional<int*> list<T>::find_node_from_tail(const T& num)
+inline list<T>::Node<T>* list<T>::find_node_from_tail(const T& num)
 {
     if (num > size)
     {
-        return std::nullopt;
+        return nullptr;
     }
 
     Node<T>* current = tail;
@@ -334,7 +362,7 @@ inline std::optional<int*> list<T>::find_node_from_tail(const T& num)
     {
         if (num == count)
         {
-            return reinterpret_cast<int*>(current);
+            return current;
         }
         ++count;
         current = current->prev;
@@ -356,3 +384,41 @@ inline T& list<T>::operator[](const int& el)
         ++count;
     }
 }
+
+template<typename T>
+inline void list<T>::create_ring_list(const int& num)
+{
+    int count = 1;
+    Node<T>* currentH = head;
+    Node<T>* ring = nullptr;
+    while (currentH->next != nullptr)
+    {
+        if (count == num)
+        {
+            ring = currentH;
+        }
+        currentH = currentH->next;
+        ++count;
+    }
+    Node<T>* currentT = tail;
+    tail->next = ring;
+    tail = ring;
+    tail->prev = currentT;
+    ++size;
+}
+
+template<typename T>
+inline list<T>::Node<T>* list<T>::get_ring_node()
+{
+    Node<T>* currentH = head;
+    Node<T>* currentT = tail;
+    
+    while (currentH != currentT)
+    {
+        currentH = currentH->next;
+        currentT = currentT->prev;
+    }
+
+    return nullptr;
+}
+
