@@ -13,8 +13,8 @@
 int main()
 {
     list<char> l{ 'a','b','c','d','e' };
-    int num = 3;
-    l.create_ring_list(num);
+    int num = 5;
+    l.create_ring_list(4);
     auto res = l.get_ring_node();
     if (res == nullptr)
     {

@@ -391,11 +391,12 @@ inline void list<T>::create_ring_list(const int& num)
     int count = 1;
     Node<T>* currentH = head;
     Node<T>* ring = nullptr;
-    while (currentH->next != nullptr)
+    while (currentH != nullptr)
     {
         if (count == num)
         {
             ring = currentH;
+            break;
         }
         currentH = currentH->next;
         ++count;
@@ -412,13 +413,22 @@ inline list<T>::Node<T>* list<T>::get_ring_node()
 {
     Node<T>* currentH = head;
     Node<T>* currentT = tail;
-    
-    while (currentH != currentT)
+
+    if (currentH == currentT)
     {
-        currentH = currentH->next;
-        currentT = currentT->prev;
+        return currentH;
+    }
+    
+    while (currentH->next != currentT->prev)
+    {
+        currentH->next = currentH->next->next;
+        currentT->prev = currentT->prev->prev;
     }
 
+    if (currentH->next == currentT->prev)
+    {
+        return currentH->next;
+    }
     return nullptr;
 }
 
