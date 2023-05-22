@@ -7,22 +7,21 @@
 Вывод: с
 */
 
-#include "../my_list.h"
-#include <iostream>
-
-int main()
-{
-    list<char> l{ 'a','b','c','d','e' };
-    int num = 5;
-    l.create_ring_list(4);
-    auto res = l.get_ring_node();
-    if (res == nullptr)
-    {
-        std::cout << "Ring node does not find\n";
-    }
-    else
-    {
-        std::cout << "First inode is -> " << res->data << std::endl;
-    }
-    return 0;
-}
+//#include "../my_list.h"
+//#include <iostream>
+//
+//int main()
+//{
+//    list<char> l{ 'a','b','c','d','e' };
+//    l.create_ring_list(4);
+//    auto res = l.get_ring_node();
+//    if (res == nullptr)
+//    {
+//        std::cout << "Ring node does not find\n";
+//    }
+//    else
+//    {
+//        std::cout << "First inode is -> " << res->data << std::endl;
+//    }
+//    return 0;
+//}

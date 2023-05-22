@@ -22,9 +22,8 @@ private:
     Node<T>* tail;
     size_t size;
 public:
-    friend class Node<T>;
     list() : head(nullptr), tail(nullptr), size(0) {}
-    list(std::initializer_list<T> initializer_list);
+    list(std::initializer_list<int> initializer_list);
     void push_back(const T& data);
     void push_back(list<T>::Node<T>* dataPtr);
     void pop_back();
@@ -43,11 +42,12 @@ public:
     T& operator [](const int& el);
     void create_ring_list(const int& num);
     list<T>::Node<T>* get_ring_node();
+    bool is_ring_list(list<T>::Node<T>* node);
 };
 
 
 template<typename T>
-inline list<T>::list(std::initializer_list<T> initializer_list)
+inline list<T>::list(std::initializer_list<int> initializer_list)
 {
     for (auto it = initializer_list.begin(); it != initializer_list.end(); ++it)
     {
@@ -91,12 +91,13 @@ inline void list<T>::push_back(list<T>::Node<T>* dataPtr)
         tail = dataPtr;
         tail->prev = current;
     }
-    Node<T>* curr = dataPtr;
+    ++size;
+    /*Node<T>* curr = dataPtr;
     while (curr != nullptr)
     {
         ++size;
         curr = curr->next;
-    }
+    }*/
 }
 
 template<typename T>
@@ -430,5 +431,18 @@ inline list<T>::Node<T>* list<T>::get_ring_node()
         return currentH->next;
     }
     return nullptr;
+}
+
+template<typename T>
+inline bool list<T>::is_ring_list(list<T>::Node<T>* node)
+{
+    Node<T>* current = node;
+    while (current != nullptr)
+    {
+
+        current = current->next;
+    }
+
+    return false;
 }
 
