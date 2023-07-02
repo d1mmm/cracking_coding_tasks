@@ -190,6 +190,13 @@ inline void list<T>::remove(const T& val)
         return;
     }
 
+    if (val == head->data)
+    {
+        pop_front();
+        --size;
+        return;
+    }
+
     Node<T>* current = head;
     while (current->next != nullptr)
     {
