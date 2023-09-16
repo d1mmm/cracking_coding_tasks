@@ -10,27 +10,27 @@ dequeueAny, dequeueDog и dequeueCat. Разрешается использов�
 #include "../shelter.h"
 #include <iostream>
 
-int main()
-{ 
-    shelter<std::string> sh;
-    sh.push("cat");
-    sh.push("dog");
-    sh.push("cat1");
-    sh.push("dog1");
-
-
-    for (int i = 0; i < sh.get_size(); ++i)
-    {
-        std::cout << sh[i] << std::endl;
-    }
-    std::cout << std::endl;
-
-    sh.dequeueOne("cat");
-
-    for (int i = 0; i < sh.get_size(); ++i)
-    {
-        std::cout << sh[i] << std::endl;
-    }
-
-    return 0;
-}
+//int main()
+//{ 
+//    shelter<std::string> sh;
+//    sh.push("cat");
+//    sh.push("dog");
+//    sh.push("cat1");
+//    sh.push("dog1");
+//
+//
+//    for (int i = 0; i < sh.get_size(); ++i)
+//    {
+//        std::cout << sh[i] << std::endl;
+//    }
+//    std::cout << std::endl;
+//
+//    sh.dequeueOne("cat");
+//
+//    for (int i = 0; i < sh.get_size(); ++i)
+//    {
+//        std::cout << sh[i] << std::endl;
+//    }
+//
+//    return 0;
+//}
