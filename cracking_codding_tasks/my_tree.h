@@ -17,7 +17,6 @@ class Tree {
 private:
     void pushPreOrderTraversal(Node<T>* node, Node<T>* temp_node);
     void preOrderTraversalShow(Node<T>* node);
-
 public:
     Tree() : root(nullptr) {};
     ~Tree() {};
@@ -73,7 +72,49 @@ inline void Tree<T>::push(const T& el)
 template<typename T>
 inline std::vector<std::list<T>> Tree<T>::make_lists()
 {
-    
+    Node<T>* node = root;
+    std::list<T> list;
+    list.push_back(node->name);
+    std::vector<std::list<T>> vec_lists;
+    vec_lists.push_back(list);
+
+    while (node != nullptr)
+    {
+        list.clear();
+        Node<T>* temp = node;
+
+        node = node->left;
+        if (node != nullptr)
+        {
+            list.push_back(node->name);
+        }
+        node = temp;
+        node = node->right;
+        if (node != nullptr)
+        {
+            list.push_back(node->name);
+        }
+        node = temp->left;
+        if (temp->left == nullptr && temp->right == nullptr)
+        {
+            node = root->right;
+        }
+
+        /*if (node == nullptr)
+        {
+            node = temp->right;
+            if (node == nullptr)
+            {
+                node = root->right;
+                
+            }
+        }*/
+        if (!list.empty())
+        {
+            vec_lists.push_back(list);
+        }
+    }
+    return vec_lists;
 }
 
 template<typename T>
