@@ -1,9 +1,9 @@
-//#include "my_tree.h"
+//#include "../my_tree.h"
 //#include <vector>
 //
 //int main()
 //{
-//    std::vector<int> vec{ 1, 5, 3, 8, 0, 4, 2 };
+//    //std::vector<int> vec{ 1, 5, 3, 8, 0, 4, 2 };
 //    std::vector<int> vec{ 10, 11, 5, 3, 8, 0, 4, 2 };
 //
 //    Tree<int> tree;
@@ -18,6 +18,20 @@
 //    std::cout << "\n===========\n" << std::endl;
 //
 //    auto lists = tree.make_lists();
+//
+//    for (auto it = lists.begin(); it != lists.end(); ++it)
+//    {
+//        for (auto it2 = it->begin(); it2 != it->end(); ++it2)
+//        {
+//            std::cout << *it2 << " ";
+//        }
+//        std::cout << std::endl;
+//    }
+//
+//
+//    std::cout << "\n=====Recursive======\n" << std::endl;
+//
+//    lists = tree.make_lists_recursive();
 //
 //    for (auto it = lists.begin(); it != lists.end(); ++it)
 //    {
