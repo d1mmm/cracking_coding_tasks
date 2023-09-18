@@ -2,6 +2,8 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/cracking_codding_tasks
 /x64/Debug
 /Karyera_programmista_6-e_izdanie.pdf
+/cracking_codding_tasks/x64/Debug
+*.cpp
+/.vs/cracking_codding_tasks
