@@ -77,12 +77,13 @@ inline std::vector<std::list<T>> Tree<T>::make_lists()
     list.push_back(node->name);
     std::vector<std::list<T>> vec_lists;
     vec_lists.push_back(list);
-
+    Node<T>* temp_right = root->right;
+    
     while (node != nullptr)
     {
         list.clear();
         Node<T>* temp = node;
-
+        
         node = node->left;
         if (node != nullptr)
         {
@@ -97,18 +98,10 @@ inline std::vector<std::list<T>> Tree<T>::make_lists()
         node = temp->left;
         if (temp->left == nullptr && temp->right == nullptr)
         {
-            node = root->right;
+            node = temp_right;
+            temp_right = nullptr;
         }
 
-        /*if (node == nullptr)
-        {
-            node = temp->right;
-            if (node == nullptr)
-            {
-                node = root->right;
-                
-            }
-        }*/
         if (!list.empty())
         {
             vec_lists.push_back(list);
