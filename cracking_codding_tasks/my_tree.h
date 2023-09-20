@@ -20,6 +20,8 @@ private:
 	std::vector<std::list<T>> vec_lists;
 	std::list<T> list;
 	void width_first_traversal(Node<T>* node);
+	int balanced_tree(Node<T>* node, bool& isBalanced);
+	int lHeight, rHeight;
 public:
 	Tree() : root(nullptr) {};
 	~Tree() {};
@@ -27,6 +29,7 @@ public:
 	void show() { preOrderTraversalShow(root); }
 	std::vector<std::list<T>> make_lists();
 	std::vector<std::list<T>> make_lists_recursive();
+	bool isBalanced();
 };
 
 
@@ -160,4 +163,35 @@ inline void Tree<T>::width_first_traversal(Node<T>* node)
 	{
 		width_first_traversal(node->right);
 	}
+}
+
+template<typename T>
+inline bool Tree<T>::isBalanced()
+{
+	bool isBalanced = true;
+	balanced_tree(root, isBalanced);
+	return isBalanced;
+}
+
+
+template<typename T>
+inline int Tree<T>::balanced_tree(Node<T>* node, bool& isBalanced)
+{
+	int lHeight, rHeight = 0;
+	if (node == nullptr || !isBalanced)
+	{
+		return 0;
+	}
+
+	lHeight = balanced_tree(node->left, isBalanced);
+	rHeight = balanced_tree(node->right, isBalanced);
+
+	if (abs(lHeight - rHeight) > 1)
+	{
+		isBalanced = false;
+	}
+
+	int res = std::max(lHeight, rHeight) + 1;
+
+	return res;
 }
